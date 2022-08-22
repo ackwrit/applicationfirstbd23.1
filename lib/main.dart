@@ -1,3 +1,4 @@
+import 'package:firstapplication/view/DashBoard.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -94,6 +95,11 @@ class _MyHomePageState extends State<MyHomePage> {
         const SizedBox(height: 10,),
         ElevatedButton(
             onPressed: (){
+              Navigator.push(context, MaterialPageRoute(
+                  builder: (context){
+                    return DashBoard(mail: mail,password: password,);
+                  }
+              ));
 
             },
             child: const Text("Connexion"),
@@ -102,7 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
             onPressed: (){
 
             },
-            child: Text("Inscription")
+            child: const Text("Inscription")
         ),
       ],
     );
