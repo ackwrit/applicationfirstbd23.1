@@ -1,7 +1,18 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firstapplication/firebase_options.dart';
 import 'package:firstapplication/view/DashBoard.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async{
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+
+  await WidgetsFlutterBinding.ensureInitialized();
+
+
+
   runApp(const MyApp());
 }
 
