@@ -12,6 +12,11 @@ class Utilisateur {
   late DateTime birthday;
 
 
+  String get fullName {
+    return "$prenom  $nom";
+  }
+
+
 
   Utilisateur(DocumentSnapshot snapshot){
     String? avatarprovisoire;
@@ -49,6 +54,14 @@ class Utilisateur {
     Timestamp timestamp = map["BIRTHDAY"];
     birthday = timestamp.toDate();
 
+  }
+
+
+  Utilisateur.empty(){
+    id = "";
+    mail = "";
+    pseudo = "";
+    birthday = DateTime.now();
   }
 
 

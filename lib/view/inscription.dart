@@ -1,4 +1,5 @@
 import 'package:firstapplication/services/FirestoreHelper.dart';
+import 'package:firstapplication/services/constants.dart';
 import 'package:firstapplication/view/DashBoard.dart';
 import 'package:flutter/material.dart';
 
@@ -131,6 +132,7 @@ class InscriptionState extends State<Inscription>{
         TextButton(
             onPressed: (){
               FirestoreHelper().inscription(mail, password, pseudo, time).then((value){
+                MyAccount = value;
                 Navigator.push(context, MaterialPageRoute(
                     builder: (context){
                       return DashBoard(mail: mail, password: password);

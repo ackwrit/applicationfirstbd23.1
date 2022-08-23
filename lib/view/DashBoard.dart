@@ -1,3 +1,4 @@
+import 'package:firstapplication/controller/MyCompte.dart';
 import 'package:flutter/material.dart';
 
 class DashBoard extends StatefulWidget{
@@ -26,7 +27,7 @@ class DashBoardState extends State<DashBoard>{
             color: Colors.white,
           borderRadius: BorderRadius.only(bottomRight: Radius.circular(60))
         ),
-        child : const Text("coucou")
+        child : MonCompte()
       ),
       appBar: AppBar(
         title: const Text("Nouvelle page"),

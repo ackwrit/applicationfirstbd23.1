@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firstapplication/firebase_options.dart';
 import 'package:firstapplication/services/FirestoreHelper.dart';
+import 'package:firstapplication/services/constants.dart';
 import 'package:firstapplication/view/DashBoard.dart';
 import 'package:firstapplication/view/inscription.dart';
 import 'package:flutter/cupertino.dart';
@@ -141,6 +142,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ElevatedButton(
             onPressed: (){
               FirestoreHelper().connected(mail, password).then((value){
+                MyAccount = value;
                 Navigator.push(context, MaterialPageRoute(
                     builder: (context){
                       return DashBoard(mail: mail,password: password,);
