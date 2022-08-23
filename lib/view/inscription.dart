@@ -1,3 +1,5 @@
+import 'package:firstapplication/services/FirestoreHelper.dart';
+import 'package:firstapplication/view/DashBoard.dart';
 import 'package:flutter/material.dart';
 
 class Inscription extends StatefulWidget{
@@ -15,6 +17,22 @@ class InscriptionState extends State<Inscription>{
   late String mail;
   late String password;
   DateTime time = DateTime.now();
+
+
+  //Méthode interne
+  openCalendar() async {
+    DateTime? dateSelected = await showDatePicker(
+        context: context,
+        initialDate: time,
+        firstDate: DateTime(1940),
+        lastDate: time
+    );
+    if(dateSelected != null && dateSelected != time){
+      setState(() {
+        time = dateSelected;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,12 +71,85 @@ class InscriptionState extends State<Inscription>{
               )
           ),
         ),
+        const SizedBox(height: 10,),
 
 
         //mail
 
+        TextField(
+          onChanged: (value){
+            setState(() {
+              mail = value;
+            });
+
+          },
+          decoration: InputDecoration(
+              fillColor: Colors.white,
+              filled: true,
+              hintText: "Entrer votre mail",
+              border:  OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(15)
+              )
+          ),
+        ),
+
+        const SizedBox(height: 10,),
+
 
         //password
+
+        TextField(
+          obscureText: true,
+          onChanged: (value){
+            setState(() {
+              password = value;
+            });
+
+          },
+          decoration: InputDecoration(
+              fillColor: Colors.white,
+              filled: true,
+              hintText: "Entrer votre password",
+              border:  OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(15)
+              )
+          ),
+        ),
+
+        const SizedBox(height: 10,),
+
+        ElevatedButton.icon(
+          icon: const Icon(Icons.watch_later_rounded),
+            onPressed: (){
+          //Ouverture de calendrier
+              openCalendar();
+          },
+            label:Text("${time.day}/${time.month}/${time.year}")
+        ),
+        const SizedBox(height: 10,),
+
+        TextButton(
+            onPressed: (){
+              FirestoreHelper().inscription(mail, password, pseudo, time).then((value){
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (context){
+                      return DashBoard(mail: mail, password: password);
+                    }
+                ));
+
+              }).catchError((error){
+
+              });
+
+            },
+            child: const Text("Enregistrer")
+        ),
+        TextButton(
+            onPressed: (){
+              Navigator.pop(context);
+            },
+            child: Text("Annuler")
+        )
 
 
         //bouton de la date de naissance
