@@ -1,19 +1,17 @@
+import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firstapplication/firebase_options.dart';
 import 'package:firstapplication/services/FirestoreHelper.dart';
 import 'package:firstapplication/view/DashBoard.dart';
+import 'package:firstapplication/view/inscription.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void main() async{
+  await WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
-
-  await WidgetsFlutterBinding.ensureInitialized();
-
-
-
   runApp(const MyApp());
 }
 
@@ -50,6 +48,41 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
   //fonction interne à la page
+  popUp(){
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context){
+          if(Platform.isIOS){
+            return CupertinoAlertDialog(
+              content: const Text("Adresse mail ou de de passe invalide"),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text("Ok")
+                )
+              ],
+            );
+          }
+          else {
+            return AlertDialog(
+              content: const Text("Adresse mail ou de de passe invalide"),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text("Ok")
+                )
+              ],
+            );
+          }
+        }
+
+    );
+  }
   @override
   Widget build(BuildContext context) {
 
@@ -115,16 +148,23 @@ class _MyHomePageState extends State<MyHomePage> {
                 ));
               }).catchError((onError){
                 //Afficher popUp
+                popUp();
 
               });
 
 
 
-            },
+
+           },
             child: const Text("Connexion"),
         ),
         TextButton(
             onPressed: (){
+              Navigator.push(context, MaterialPageRoute(
+                  builder: (context){
+                    return Inscription();
+                  }
+              ));
 
             },
             child: const Text("Inscription")
