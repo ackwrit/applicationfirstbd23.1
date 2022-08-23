@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firstapplication/firebase_options.dart';
+import 'package:firstapplication/services/FirestoreHelper.dart';
 import 'package:firstapplication/view/DashBoard.dart';
 import 'package:flutter/material.dart';
 
@@ -106,11 +107,18 @@ class _MyHomePageState extends State<MyHomePage> {
         const SizedBox(height: 10,),
         ElevatedButton(
             onPressed: (){
-              Navigator.push(context, MaterialPageRoute(
-                  builder: (context){
-                    return DashBoard(mail: mail,password: password,);
-                  }
-              ));
+              FirestoreHelper().connected(mail, password).then((value){
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (context){
+                      return DashBoard(mail: mail,password: password,);
+                    }
+                ));
+              }).catchError((onError){
+                //Afficher popUp
+
+              });
+
+
 
             },
             child: const Text("Connexion"),
