@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firstapplication/firebase_options.dart';
 import 'package:firstapplication/services/FirestoreHelper.dart';
+import 'package:firstapplication/services/Permission.dart';
 import 'package:firstapplication/services/constants.dart';
 import 'package:firstapplication/view/DashBoard.dart';
 import 'package:firstapplication/view/inscription.dart';
@@ -13,6 +14,7 @@ void main() async{
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  PermissionHandler().init();
   runApp(const MyApp());
 }
 

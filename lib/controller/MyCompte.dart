@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:firstapplication/services/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -17,6 +18,49 @@ class MonCompteState extends State<MonCompte>{
   Uint8List? dataImage;
   String? nameImage;
   String? cheminImage;
+
+
+
+  //fonctions internes
+  selectionImage() async{
+    FilePickerResult? resultat = await FilePicker.platform.pickFiles(
+      withData: true
+    );
+    if(resultat !=null){
+      dataImage = resultat.files.first.bytes;
+      nameImage = resultat.files.first.name;
+      await showImage();
+      Navigator.pop(context);
+    }
+  }
+
+
+  showImage(){
+    showDialog(
+        context: context,
+        builder: (context){
+          return AlertDialog(
+            title: const Text("Choix de l'image"),
+            content: Image.memory(dataImage!),
+            actions: [
+              TextButton(
+                  onPressed: (){
+                Navigator.pop(context);
+              },
+                  child: const Text("Annuler")
+              ),
+              TextButton(
+                  onPressed: (){
+
+              },
+                  child: const Text("Enregistrer")
+              ),
+            ],
+
+          );
+        }
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +88,7 @@ class MonCompteState extends State<MonCompte>{
           ),
           onTap: (){
             print("J'ai cliquer l'image");
+            selectionImage();
           },
         ),
 
