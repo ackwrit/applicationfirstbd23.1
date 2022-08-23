@@ -148,7 +148,7 @@ class InscriptionState extends State<Inscription>{
             onPressed: (){
               Navigator.pop(context);
             },
-            child: Text("Annuler")
+            child: const Text("Annuler")
         )
 
 

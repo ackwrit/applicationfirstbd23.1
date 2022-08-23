@@ -18,6 +18,16 @@ class DashBoardState extends State<DashBoard>{
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
+      drawer: Container(
+
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width/1.5,
+        decoration: const BoxDecoration(
+            color: Colors.white,
+          borderRadius: BorderRadius.only(bottomRight: Radius.circular(60))
+        ),
+        child : const Text("coucou")
+      ),
       appBar: AppBar(
         title: const Text("Nouvelle page"),
       ),
