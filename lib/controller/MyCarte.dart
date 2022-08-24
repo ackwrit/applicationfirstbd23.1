@@ -68,17 +68,26 @@ class MyCarteState extends State<MyCarte>{
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return GoogleMap(
-        initialCameraPosition: (positionActuelle==null)?cameraPosition:positionActuelle!,
-      onMapCreated: (GoogleMapController control) async {
-          String styleMap = await DefaultAssetBundle.of(context).loadString("lib/style/mapStyle.json");
-          control.setMapStyle(styleMap);
-          controller.complete(control);
-      },
-      myLocationButtonEnabled: true,
-      myLocationEnabled: true,
+    return Stack(
+      children: [
+        GoogleMap(
+          initialCameraPosition: (positionActuelle==null)?cameraPosition:positionActuelle!,
+          onMapCreated: (GoogleMapController control) async {
+            String styleMap = await DefaultAssetBundle.of(context).loadString("lib/style/mapStyle.json");
+            control.setMapStyle(styleMap);
+            controller.complete(control);
+          },
+          myLocationButtonEnabled: true,
+          myLocationEnabled: true,
 
+        ),
+
+      ],
     );
+
+
+
+
   }
 
 }
