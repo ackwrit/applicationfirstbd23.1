@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firstapplication/model/Utilisateur.dart';
 import 'package:firstapplication/services/FirestoreHelper.dart';
 import 'package:firstapplication/services/constants.dart';
+import 'package:firstapplication/view/infoPerso.dart';
 import "package:flutter/material.dart";
 
 class ListPersonne extends StatefulWidget{
@@ -55,6 +56,11 @@ class ListPersonneState extends State<ListPersonne>{
                          title: Text(personne.pseudo),
                          subtitle: Text(personne.fullName),
                          onTap: (){
+                           Navigator.push(context, MaterialPageRoute(
+                               builder: (context){
+                                 return InfoPerso(utilisateur: personne,);
+                               }
+                           ));
 
                          },
 
