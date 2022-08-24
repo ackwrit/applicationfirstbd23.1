@@ -1,6 +1,7 @@
 import 'package:firstapplication/model/Utilisateur.dart';
 import 'package:firstapplication/services/FirestoreHelper.dart';
 import 'package:firstapplication/services/constants.dart';
+import 'package:firstapplication/view/Messagerie.dart';
 import 'package:flutter/material.dart';
 
 class InfoPerso extends StatefulWidget{
@@ -70,8 +71,8 @@ class InfoPersoState extends State<InfoPerso>{
                   setState((){
                     isFavori = true;
                   });
-
-                  if(!isFavori){
+                    bool tempo = MyAccount.favoris.contains(widget.utilisateur.id);
+                  if(!tempo){
                     MyAccount.favoris.add(widget.utilisateur.id);
                     Map<String,dynamic> map ={
                       "FAVORIS" : MyAccount.favoris
@@ -84,6 +85,11 @@ class InfoPersoState extends State<InfoPerso>{
             }, icon: Icon(Icons.heart_broken_sharp,size: 45,color:(isFavori)?Colors.red:Colors.black)
             ),
             IconButton(onPressed: (){
+              Navigator.push(context, MaterialPageRoute(
+                  builder: (context){
+                    return Messagerie(partenaire: widget.utilisateur);
+                  }
+              ));
 
             }, icon: const Icon(Icons.chat_bubble,size: 45,)
             ),

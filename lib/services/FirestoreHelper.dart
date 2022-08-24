@@ -10,6 +10,7 @@ class FirestoreHelper{
    final auth = FirebaseAuth.instance;
    final storage = FirebaseStorage.instance;
    final fireUsers = FirebaseFirestore.instance.collection("USERS");
+   final fireMessage = FirebaseFirestore.instance.collection("MESSAGES");
 
 
 
@@ -72,6 +73,24 @@ class FirestoreHelper{
 
 
 
+   }
+
+   //Enovyer les messages
+   EnvoiMessage(String texte, Utilisateur moi , Utilisateur partenaire){
+      DateTime date = DateTime.now();
+      Map<String,dynamic> map = {
+        "FROM": moi.id,
+         "TO":  partenaire.id,
+         "DATE" : date,
+         "MESSAGE": texte,
+      };
+
+
+
+   }
+
+   addMesage(uid,Map<String,dynamic> map){
+      fireMessage.doc(uid).set(map);
    }
 
 
