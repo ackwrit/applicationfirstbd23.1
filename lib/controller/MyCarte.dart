@@ -26,6 +26,42 @@ class MyCarteState extends State<MyCarte>{
 
 
   //Fonction interne
+  Future<Position> verificationPermission() async {
+    bool service;
+    LocationPermission permission;
+    service = await Geolocator.isLocationServiceEnabled();
+    if(!service){
+      return Future.error("La laocalisation n'a pas été demandé");
+    }
+    permission = await Geolocator.checkPermission();
+    if(permission == LocationPermission.denied){
+      permission = await Geolocator.requestPermission();
+      if(permission == LocationPermission.denied){
+        return Future.error("La permission a été refusé");
+      }
+    }
+
+    if(permission == LocationPermission.deniedForever){
+      Future.error("La permission sera toujours refusé");
+    }
+
+    return await Geolocator.getCurrentPosition();
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    verificationPermission().then((Position gps){
+      setState(() {
+        maPosition = gps;
+        positionActuelle = CameraPosition(target: LatLng(maPosition!.latitude,maPosition!.longitude),zoom: 14);
+      });
+    });
+  }
+
+
+
 
 
 
@@ -33,10 +69,14 @@ class MyCarteState extends State<MyCarte>{
   Widget build(BuildContext context) {
     // TODO: implement build
     return GoogleMap(
-        initialCameraPosition: cameraPosition,
-      onMapCreated: (GoogleMapController control){
+        initialCameraPosition: (positionActuelle==null)?cameraPosition:positionActuelle!,
+      onMapCreated: (GoogleMapController control) async {
+          String styleMap = await DefaultAssetBundle.of(context).loadString("lib/style/mapStyle.json");
+          control.setMapStyle(styleMap);
           controller.complete(control);
       },
+      myLocationButtonEnabled: true,
+      myLocationEnabled: true,
 
     );
   }
