@@ -54,6 +54,9 @@ class ListPersonneState extends State<ListPersonne>{
                          ),
                          title: Text(personne.pseudo),
                          subtitle: Text(personne.fullName),
+                         onTap: (){
+
+                         },
 
 
                        ),

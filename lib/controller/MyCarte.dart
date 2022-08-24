@@ -81,6 +81,13 @@ class MyCarteState extends State<MyCarte>{
           myLocationEnabled: true,
 
         ),
+         Padding(
+             padding: const EdgeInsets.all(10),
+           child: MaBoite(),
+         )
+
+
+
 
       ],
     );
@@ -88,6 +95,31 @@ class MyCarteState extends State<MyCarte>{
 
 
 
+
+
+
+  }
+
+  Widget MaBoite(){
+    return Container(
+      padding: const EdgeInsets.all(20),
+      width: 400,
+      height: 100,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        shape: BoxShape.rectangle,
+        borderRadius: BorderRadius.circular(20),
+
+      ),
+      child: Column(
+        children: [
+          Text("Ma localisation : ${maPosition!.latitude} - ${maPosition!.longitude}"),
+          Divider(),
+          Text("Ma Destination")
+        ],
+      ),
+
+    );
   }
 
 }
