@@ -15,6 +15,33 @@ class PermissionHandler {
       PermissionStatus status = await Permission.photos.status;
       checkPhotos(status);
     }
+
+    PermissionStatus location = await Permission.location.status;
+    checkLocation(location);
+  }
+
+
+  //Vérifier la loclisation
+  Future<PermissionStatus >checkLocation(PermissionStatus status) async{
+    switch (status) {
+      case PermissionStatus.permanentlyDenied :
+        return Future.error("L'accès au gps est refusé");
+      case PermissionStatus.denied :
+        return await Permission.location.request().then((value) =>
+            checkStorage(status));
+      case PermissionStatus.limited :
+        return await Permission.location.request().then((value) =>
+            checkStorage(status));
+      case PermissionStatus.restricted :
+        return await Permission.location.request().then((value) =>
+            checkStorage(status));
+      case PermissionStatus.granted :
+        return Future.error("L'accès au gps est accepté");
+      default :
+        return Future.error(
+            "Vous n'avez pas de status pour l'accès au gps");
+    }
+
   }
 
 

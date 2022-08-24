@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firstapplication/model/Utilisateur.dart';
 import 'package:firstapplication/services/FirestoreHelper.dart';
+import 'package:firstapplication/services/constants.dart';
 import "package:flutter/material.dart";
 
 class ListPersonne extends StatefulWidget{
@@ -40,7 +42,28 @@ class ListPersonneState extends State<ListPersonne>{
               return ListView.builder(
                   itemCount: documents.length,
                   itemBuilder: (context,index){
-                    return const Text("Image");
+                   Utilisateur personne = Utilisateur(documents[index]);
+                   if(MyAccount.id != personne.id){
+                     return Card(
+                       elevation: 5,
+                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                       child:  ListTile(
+                         leading: CircleAvatar(
+                           radius: 25,
+                           backgroundImage: NetworkImage(personne.avatar!),
+                         ),
+                         title: Text(personne.pseudo),
+                         subtitle: Text(personne.fullName),
+
+
+                       ),
+                     );
+                   }
+                   else
+                     {
+                       return Container();
+                     }
+
                   }
               );
 

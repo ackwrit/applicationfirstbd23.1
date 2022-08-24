@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "617646005035",
+    "project_id": "ipssibd231",
+    "storage_bucket": "ipssibd231.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:617646005035:android:68a74d76d9506a48b9436e",
+        "android_client_info": {
+          "package_name": "com.lightphoenix.firstapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "617646005035-6olv59i3j9tsfvt66do9p86u74mootcr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCJhs2xDHD6DGqlUqQrBfl8yE3Hm8r7mg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "617646005035-6olv59i3j9tsfvt66do9p86u74mootcr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
