@@ -1,3 +1,4 @@
+import 'package:firstapplication/controller/ListPersonne.dart';
 import 'package:firstapplication/controller/MyCompte.dart';
 import 'package:flutter/material.dart';
 
@@ -71,9 +72,9 @@ class DashBoardState extends State<DashBoard>{
         });
       },
       controller: pageIndex,
-      children: const [
+      children: [
         Center(
-          child: Text("Liste de personne"),
+          child: ListPersonne()
         ),
 
         Center(

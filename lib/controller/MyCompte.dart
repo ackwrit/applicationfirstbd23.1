@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:file_picker/file_picker.dart';
+import 'package:firstapplication/services/FirestoreHelper.dart';
 import 'package:firstapplication/services/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -29,8 +30,8 @@ class MonCompteState extends State<MonCompte>{
     if(resultat !=null){
       dataImage = resultat.files.first.bytes;
       nameImage = resultat.files.first.name;
-      await showImage();
-      Navigator.pop(context);
+      showImage();
+
     }
   }
 
@@ -44,13 +45,25 @@ class MonCompteState extends State<MonCompte>{
             content: Image.memory(dataImage!),
             actions: [
               TextButton(
-                  onPressed: (){
-                Navigator.pop(context);
-              },
+                  onPressed: ()
+                  {
+                    Navigator.pop(context);
+                  },
                   child: const Text("Annuler")
               ),
               TextButton(
                   onPressed: (){
+                    FirestoreHelper().stockageImage(nameImage!, dataImage!).then((value){
+                      setState((){
+                        cheminImage = value;
+                        MyAccount.avatar = value;
+                      });
+                      Map<String,dynamic> map = {
+                        "AVATAR" : cheminImage
+                      };
+                      FirestoreHelper().updateUser(MyAccount.id, map);
+                      Navigator.pop(context);
+                    });
 
               },
                   child: const Text("Enregistrer")

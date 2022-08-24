@@ -1,4 +1,6 @@
 
+import 'dart:typed_data';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -56,13 +58,22 @@ class FirestoreHelper{
 
 
    //mettre à jour les infos de l'utilisateurs
-   UpdateUser(String uid, Map<String,dynamic> map){
+   updateUser(String uid, Map<String,dynamic> map){
       fireUsers.doc(uid).update(map);
    }
 
 
 
    //Stocker une image
+   Future <String> stockageImage(String nameImage, Uint8List data) async {
+      TaskSnapshot snapshot = await storage.ref("avatars/$nameImage").putData(data);
+      String url = await snapshot.ref.getDownloadURL();
+      return url;
+
+
+
+   }
+
 
 
 
