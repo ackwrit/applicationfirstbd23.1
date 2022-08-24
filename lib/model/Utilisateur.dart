@@ -10,6 +10,7 @@ class Utilisateur {
   String? nom;
   String? prenom;
   late DateTime birthday;
+  late List favoris;
 
 
   String get fullName {
@@ -53,6 +54,15 @@ class Utilisateur {
     }
     Timestamp timestamp = map["BIRTHDAY"];
     birthday = timestamp.toDate();
+    List? tempo;
+    tempo = map["FAVORIS"];
+    if(tempo == null){
+      favoris = [];
+    }
+    else
+      {
+        favoris = tempo;
+      }
 
   }
 
@@ -62,6 +72,7 @@ class Utilisateur {
     mail = "";
     pseudo = "";
     birthday = DateTime.now();
+    favoris = [];
   }
 
 

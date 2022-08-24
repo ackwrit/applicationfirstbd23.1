@@ -1,4 +1,6 @@
 import 'package:firstapplication/model/Utilisateur.dart';
+import 'package:firstapplication/services/FirestoreHelper.dart';
+import 'package:firstapplication/services/constants.dart';
 import 'package:flutter/material.dart';
 
 class InfoPerso extends StatefulWidget{
@@ -19,6 +21,14 @@ class InfoPersoState extends State<InfoPerso>{
 
 
   //fonction interne
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    setState(() {
+      isFavori = MyAccount.favoris.contains(widget.utilisateur.id);
+    });
+  }
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -60,6 +70,14 @@ class InfoPersoState extends State<InfoPerso>{
                   setState((){
                     isFavori = true;
                   });
+
+                  if(!isFavori){
+                    MyAccount.favoris.add(widget.utilisateur.id);
+                    Map<String,dynamic> map ={
+                      "FAVORIS" : MyAccount.favoris
+                    };
+                    FirestoreHelper().updateUser(MyAccount.id, map);
+                  }
 
 
 

@@ -58,7 +58,7 @@ class ListPersonneState extends State<ListPersonne>{
                          onTap: (){
                            Navigator.push(context, MaterialPageRoute(
                                builder: (context){
-                                 return InfoPerso(utilisateur: personne,);
+                                 return InfoPerso(utilisateur: personne);
                                }
                            ));
 
