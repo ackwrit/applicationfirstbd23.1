@@ -1,4 +1,5 @@
 import 'package:firstapplication/model/Utilisateur.dart';
+import 'package:firstapplication/services/FirestoreHelper.dart';
 import 'package:flutter/material.dart';
 
 class ZoneTexte extends StatefulWidget{
@@ -25,11 +26,11 @@ class ZoneTexteState extends State<ZoneTexte>{
     if(controller != null && controller != ""){
       String texte = controller.text;
       //Enregister dans la base de donnée
-
-
-      setState(() {
-        controller.text ="";
-      });
+      FirestoreHelper().EnvoiMessage(texte, widget.moi, widget.partenaire);
+      //effacer le texte
+      controller.clear();
+      //Fermer le clavier
+      FocusScope.of(context).requestFocus(FocusNode());
     }
   }
 

@@ -1,3 +1,4 @@
+import 'package:firstapplication/controller/AfficheMessage.dart';
 import 'package:firstapplication/controller/ZoneTexte.dart';
 import 'package:firstapplication/model/Utilisateur.dart';
 import 'package:firstapplication/services/constants.dart';
@@ -33,7 +34,7 @@ class MessagerieState extends State<Messagerie>{
             child: Container(
               height: MediaQuery.of(context).size.height,
               //Afficher les messages
-              child: Text("coucou"),
+              child: AfficheMessage(),
             )
         ),
 

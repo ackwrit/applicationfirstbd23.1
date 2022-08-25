@@ -75,6 +75,19 @@ class Utilisateur {
     favoris = [];
   }
 
+  Map<String,dynamic> toMap(){
+    Map<String,dynamic> map ={
+      "PSEUDO" : pseudo,
+      "MAIL": mail,
+      "AVATAR": avatar,
+      "NOM":nom,
+      "PRENOM": prenom,
+      "BIRTHDAY": birthday,
+      "FAVORIS" : favoris
+    };
+    return map;
+  }
+
 
 
 

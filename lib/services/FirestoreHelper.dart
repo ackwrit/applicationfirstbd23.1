@@ -11,6 +11,7 @@ class FirestoreHelper{
    final storage = FirebaseStorage.instance;
    final fireUsers = FirebaseFirestore.instance.collection("USERS");
    final fireMessage = FirebaseFirestore.instance.collection("MESSAGES");
+   final fireConversation = FirebaseFirestore.instance.collection("CONVERSATIONS");
 
 
 
@@ -85,12 +86,42 @@ class FirestoreHelper{
          "MESSAGE": texte,
       };
 
+      addMesage(getMessageRef(moi.id, partenaire.id, date.toString()), map);
+      addConversation(moi.id, getConversation(moi.id, partenaire, texte, date));
+      addConversation(partenaire.id,getConversation(moi.id, partenaire, texte, date));
+
 
 
    }
 
-   addMesage(uid,Map<String,dynamic> map){
+   Map<String,dynamic> getConversation(String sender, Utilisateur partenaire, String texte , DateTime time){
+      Map<String,dynamic> map = partenaire.toMap();
+      map["IDMOI"] = sender;
+      map["LASTMESSAGE"] = texte;
+      map["ENVOIMASSAGE"]= time;
+      map["DESTINATAIRE"] = partenaire.id;
+      return map;
+   }
+
+   addMesage(String uid,Map<String,dynamic> map){
       fireMessage.doc(uid).set(map);
+   }
+
+
+   addConversation(String uid,Map<String,dynamic> map){
+      fireConversation.doc(uid).set(map);
+   }
+
+
+   String  getMessageRef(String from , String to, String date){
+      String resultat = "";
+      List<String> liste =[from, to];
+      liste.sort((a,b)=> a.compareTo(b));
+      for (var x in liste){
+         resultat += x+"+";
+      }
+      resultat = resultat + date;
+      return resultat;
    }
 
 
