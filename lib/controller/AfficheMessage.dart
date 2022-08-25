@@ -1,9 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firstapplication/model/Message.dart';
+import 'package:firstapplication/model/Utilisateur.dart';
 import 'package:firstapplication/services/FirestoreHelper.dart';
 import 'package:flutter/material.dart';
 
 class AfficheMessage extends StatefulWidget{
+  Utilisateur moi;
+  Utilisateur partenaire;
+  AfficheMessage({required this.moi, required this.partenaire});
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -22,7 +26,7 @@ class AfficheMessageState extends State<AfficheMessage>{
 
   Widget bodyPage(){
     return StreamBuilder<QuerySnapshot>(
-        stream: FirestoreHelper().fireMessage.orderBy("DATE",descending: true).snapshots(),
+        stream: FirestoreHelper().fireMessage.orderBy("DATE",descending: false).snapshots(),
         builder: (context,snapshot){
           if(!snapshot.hasData){
             return const Center(
@@ -36,7 +40,14 @@ class AfficheMessageState extends State<AfficheMessage>{
                   itemCount: documents.length,
                   itemBuilder: (context,index){
                     Message message = Message(documents[index]);
-                    return Text(message.texte);
+                    if(message.from == widget.moi.id && message.to == widget.partenaire.id || message.from == widget.partenaire.id && message.to == widget.moi.id){
+                      return Text(message.texte);
+                    }
+                    else
+                      {
+                        return Container();
+                      }
+
                   }
               );
             }

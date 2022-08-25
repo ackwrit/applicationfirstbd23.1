@@ -34,7 +34,7 @@ class MessagerieState extends State<Messagerie>{
             child: Container(
               height: MediaQuery.of(context).size.height,
               //Afficher les messages
-              child: AfficheMessage(),
+              child: AfficheMessage(moi:MyAccount,partenaire: widget.partenaire),
             )
         ),
 
