@@ -21,6 +21,7 @@ class ZoneTexteState extends State<ZoneTexte>{
 
   //fonction interne
   sendMessage(){
+
     if(controller != null && controller != ""){
       String texte = controller.text;
       //Enregister dans la base de donnée
