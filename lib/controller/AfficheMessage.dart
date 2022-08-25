@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firstapplication/controller/MessageBubble.dart';
 import 'package:firstapplication/model/Message.dart';
 import 'package:firstapplication/model/Utilisateur.dart';
 import 'package:firstapplication/services/FirestoreHelper.dart';
@@ -41,7 +42,7 @@ class AfficheMessageState extends State<AfficheMessage>{
                   itemBuilder: (context,index){
                     Message message = Message(documents[index]);
                     if(message.from == widget.moi.id && message.to == widget.partenaire.id || message.from == widget.partenaire.id && message.to == widget.moi.id){
-                      return Text(message.texte);
+                      return MessageBubble(message: message, partenaire: widget.partenaire, monId: widget.moi.id);
                     }
                     else
                       {

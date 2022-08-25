@@ -1,4 +1,5 @@
 import 'package:firstapplication/controller/ListPersonne.dart';
+import 'package:firstapplication/controller/Mesfavoris.dart';
 import 'package:firstapplication/controller/MyCarte.dart';
 import 'package:firstapplication/controller/MyCompte.dart';
 import 'package:flutter/material.dart';
@@ -82,7 +83,7 @@ class DashBoardState extends State<DashBoard>{
           child: MyCarte(),
         ),
         Center(
-          child: Text("Une messagerie"),
+          child: MesFavoris(),
         ),
 
       ],
